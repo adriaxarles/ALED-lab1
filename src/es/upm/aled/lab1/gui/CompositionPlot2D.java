@@ -17,7 +17,6 @@ import javax.swing.JMenuBar;
 public class CompositionPlot2D {
 
 	public static boolean tests = false;
-	// esto es un cambio de prueba
 	private JFrame frame;
 	private Plot2D[] plots;
 
