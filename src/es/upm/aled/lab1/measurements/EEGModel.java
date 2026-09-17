@@ -2,6 +2,7 @@ package es.upm.aled.lab1.measurements;
 
 import java.io.DataInput;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -56,8 +57,10 @@ public class EEGModel {
 	 * @param measurements The Measurements that make up the EEGModel.
 	 */
 	public EEGModel(Measurement[] measurements) {
-		// TODO
-		
+		// YA HECHO
+		for (int i = 0; i < measurements.length; i++) {
+			this.measurements.add(measurements[i]);
+		}
 	}
 
 	/**
@@ -89,17 +92,19 @@ public class EEGModel {
 	 * @return The new EEGModel.
 	 */
 	public EEGModel filter(Filter filter) {
-		// TODO
-		
+		// YA HECHO
+		if (filter != null) {
+			return filter.applyFilter(this);
+		}
 		return null;
 	}
 
 	/**
 	 * Fills the measurements from the contents of an OpenBCI file, a CSV file in
 	 * which each line represents a measurement. The first column is an index modulo
-	 * 256, and the remaining columns are the values of the samples obtained by
-	 * each of the channels. All lines must have the same number of columns. "%" at
-	 * the beginning of a line indicates a comment.
+	 * 256, and the remaining columns are the values of the samples obtained by each
+	 * of the channels. All lines must have the same number of columns. "%" at the
+	 * beginning of a line indicates a comment.
 	 * 
 	 * @param fileName Path to the OpenBCI file.
 	 * @throws IOException Thrown if the file can't be read.
@@ -130,8 +135,19 @@ public class EEGModel {
 	 * @throws IOException Thrown if the file can't be written.
 	 */
 	public void saveFile(String fileName) throws IOException {
-		// TODO
-		
+		// YA ESTÁ
+		File f = new File(fileName);
+		FileOutputStream fos = new FileOutputStream(f);
+		PrintStream ps = new PrintStream(fos);
+		for (int i = 0; i < measurements.size(); i++) {
+			Measurement m = measurements.get(i);
+			ps.print(i % 256);
+			for (int j = 0; j < m.numChannels(); j++) {
+				ps.print(" ; " + m.getChannel(j));
+				ps.println();
+			}
+			fos.close();
+		}
 	}
 
 	/**
@@ -248,14 +264,21 @@ public class EEGModel {
 	public static void main(String[] args) {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
+
+			// YA ESTÁ
+			FilterExtractChannels channelFilter = new FilterExtractChannels(new int[] { 8, 9, 10 });
+			FilterExtractPeriod periodFilter = new FilterExtractPeriod(2750, 5750);
+			eeg = eeg.filter(channelFilter).filter(periodFilter);
 			eeg.plotData();
-			// TODO
-			
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			// TODO
-			
+			// YA ESTÁ
+			try {
+				eeg.saveFile("Synthetic.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
