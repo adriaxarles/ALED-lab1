@@ -23,14 +23,14 @@ public class FilterExtractPeriod implements Filter {
 	private int max;
 
 	public FilterExtractPeriod(int min, int max) {
-		// YA ESTÁ
+		// TODO: YA HECHO
 		this.min = min;
 		this.max = max;
 	}
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
-		// YA ESTÁ
+		// TODO: YA HECHO
 		Measurement[] orig = eeg.getMeasurements();
 		Measurement[] filtro = new Measurement[max - min + 1];
 		for (int i = min; i <= max; i++) {

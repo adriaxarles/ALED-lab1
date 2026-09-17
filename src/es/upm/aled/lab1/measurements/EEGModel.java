@@ -57,10 +57,18 @@ public class EEGModel {
 	 * @param measurements The Measurements that make up the EEGModel.
 	 */
 	public EEGModel(Measurement[] measurements) {
-		// YA HECHO
-		for (int i = 0; i < measurements.length; i++) {
-			this.measurements.add(measurements[i]);
+		// TODO: YA HECHO
+		// 1
+		for (Measurement item : measurements) {
+			this.measurements.add(item);
+
 		}
+		/*
+		 * for (int i = 0; i < measurements.length; i++) {
+		 * this.measurements.add(measurements[i]);
+		 * 
+		 */
+
 	}
 
 	/**
@@ -92,11 +100,8 @@ public class EEGModel {
 	 * @return The new EEGModel.
 	 */
 	public EEGModel filter(Filter filter) {
-		// YA HECHO
-		if (filter != null) {
-			return filter.applyFilter(this);
-		}
-		return null;
+		// TODO: YA HECHO
+		return filter.applyFilter(this);
 	}
 
 	/**
@@ -135,7 +140,7 @@ public class EEGModel {
 	 * @throws IOException Thrown if the file can't be written.
 	 */
 	public void saveFile(String fileName) throws IOException {
-		// YA ESTÁ
+		// TODO: YA HECHO
 		File f = new File(fileName);
 		FileOutputStream fos = new FileOutputStream(f);
 		PrintStream ps = new PrintStream(fos);
@@ -143,11 +148,11 @@ public class EEGModel {
 			Measurement m = measurements.get(i);
 			ps.print(i % 256);
 			for (int j = 0; j < m.numChannels(); j++) {
-				ps.print(" ; " + m.getChannel(j));
-				ps.println();
+				ps.print(" , " + m.getChannel(j));
 			}
-			fos.close();
+			ps.println();
 		}
+		fos.close();
 	}
 
 	/**
@@ -265,7 +270,7 @@ public class EEGModel {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 
-			// YA ESTÁ 
+			// TODO: YA HECHO
 			FilterExtractChannels channelFilter = new FilterExtractChannels(new int[] { 8, 9, 10 });
 			FilterExtractPeriod periodFilter = new FilterExtractPeriod(2750, 5750);
 			eeg = eeg.filter(channelFilter).filter(periodFilter);
@@ -273,7 +278,7 @@ public class EEGModel {
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			// YA ESTÁ 
+			// TODO: YA HECHO
 			try {
 				eeg.saveFile("Synthetic.txt");
 			} catch (IOException e) {
