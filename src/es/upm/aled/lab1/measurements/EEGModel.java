@@ -271,16 +271,20 @@ public class EEGModel {
 			EEGModel eeg = new EEGModel(args[0]);
 
 			// TODO: YA HECHO
-			FilterExtractChannels channelFilter = new FilterExtractChannels(new int[] { 8, 9, 10 });
+			int[] canales = { 8, 9, 10 };
+			FilterExtractChannels channelFilter = new FilterExtractChannels(canales);
 			FilterExtractPeriod periodFilter = new FilterExtractPeriod(2750, 5750);
-			eeg = eeg.filter(channelFilter).filter(periodFilter);
+
+			eeg = eeg.filter(channelFilter);
+			eeg = eeg.filter(periodFilter);
+
 			eeg.plotData();
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
 			// TODO: YA HECHO
 			try {
-				eeg.saveFile("Synthetic.txt");
+				eeg.saveFile("recordings/Synthetic.txt");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
