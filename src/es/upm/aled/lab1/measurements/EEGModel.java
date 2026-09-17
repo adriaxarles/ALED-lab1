@@ -273,7 +273,7 @@ public class EEGModel {
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			// YA ESTÁ
+			// YA ESTÁ 
 			try {
 				eeg.saveFile("Synthetic.txt");
 			} catch (IOException e) {
