@@ -25,14 +25,14 @@ public class FilterExtractChannels implements Filter {
 	 * @param validChannels The channel numbers to be extracted, starting from 0.
 	 */
 	public FilterExtractChannels(int[] validChannels) {
-		// YA ESTÁ
+		// TODO: YA HECHO
 		this.validChannels = validChannels;
 
 	}
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
-		// YA ESTÁ
+		// TODO: YA HECHO
 		Measurement[] orig = eeg.getMeasurements();
 		Measurement[] filtro = new Measurement[orig.length];
 		for (int i = 0; i < orig.length; i++) {
