@@ -30,15 +30,6 @@ public class Measurement {
 	public float getChannel(int numChannel) {
 		return channels[numChannel];
 	}
-	
-	/**
-	 * Returns the channels array.
-	 * 
-	 * @return channels array.
-	 */
-	public float[] getChannels() {
-		return channels;
-	}
 
 	/**
 	 * Returns how many channels the measurement has.
