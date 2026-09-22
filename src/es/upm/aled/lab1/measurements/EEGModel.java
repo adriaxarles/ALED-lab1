@@ -72,6 +72,16 @@ public class EEGModel {
 	}
 
 	/**
+	 * Builds an EEGModel from a List of Measurements.
+	 * 
+	 * @param measurements The Measurements that make up the EEGModel.
+	 */
+	public EEGModel(List<Measurement> measurements) {
+		this.measurements = measurements;
+
+	}
+
+	/**
 	 * Adds a Measurement to the end of the EEGModel. If the GUI is running, the new
 	 * Measurement is also plotted.
 	 * 
