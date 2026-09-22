@@ -10,10 +10,15 @@ public class ExamenEjercicio2 {
 		// Dividimos el contenido en líneas.
 		String[] lineas = contenidoArchivo.split("\n");
 
+		// Creo un contador. Contador%256 deberá ser igual al numero de medida.
+		// Mejor crear un contador, pues si hacemos un for (int i=0; ...
+		// las lineas que empiezan por % tambien incrementan el numero i, 
+		// cosa que no facilita el procesado del fichero
 		int contador = 0;
 		for (String medida: lineas) {
 			// Analizar cada linea
 
+			// Quitar las lineas que empiezan por %
 			if (medida.startsWith("%")) {
 				continue;
 			}
@@ -41,10 +46,10 @@ public class ExamenEjercicio2 {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		final String FICHERO_BUENO = "recordings/OpenBCI_raw_1.txt";
 		final String FICHERO_MALO1 = "recordings/OpenBCI_raw_3.txt";
 		final String FICHERO_MALO2 = "recordings/OpenBCI_raw_4.txt";
+		
 		final String fichero = FICHERO_MALO1;
 
 		try {
