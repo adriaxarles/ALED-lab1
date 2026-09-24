@@ -1,5 +1,8 @@
 package es.upm.aled.lab1.measurements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Filter that extracts the specified channels from an EEGModel.
  * 
@@ -33,7 +36,7 @@ public class FilterExtractChannels implements Filter {
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
 		// TODO: YA HECHO
-		Measurement[] orig = eeg.getMeasurements();
+		/*Measurement[] orig = eeg.getMeasurements();
 		Measurement[] filtro = new Measurement[orig.length];
 		for (int i = 0; i < orig.length; i++) {
 			Measurement m = orig[i];
@@ -47,6 +50,19 @@ public class FilterExtractChannels implements Filter {
 			}
 			filtro[i] = new Measurement(canalesElegidos);
 		}
-		return new EEGModel(filtro);
-	}
+		return new EEGModel(filtro); */
+		EEGModel filtrado= new EEGModel();
+		for(Measurement m: eeg.measurements) {
+			float[] canalesValidos= new float[validChannels.length];
+			for(int i=0; i< m.numChannels(); i++) {
+				if(validChannels[i]>=m.numChannels()|| validChannels[i]<0) {
+					return null;
+				}
+				canalesValidos[i]= m.getChannel(validChannels[i]); 
+				}
+			Measurement p= new Measurement(canalesValidos);
+			filtrado.addMeasurement(p);
+			}
+		return filtrado;
+		}
 }

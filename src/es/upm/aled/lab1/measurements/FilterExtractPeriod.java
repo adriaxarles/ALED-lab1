@@ -1,5 +1,8 @@
 package es.upm.aled.lab1.measurements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Filter that extracts the specified period from an EEGModel.
  * 
@@ -30,17 +33,48 @@ public class FilterExtractPeriod implements Filter {
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
-		// TODO: YA HECHO
-		Measurement[] orig = eeg.getMeasurements();
-		if (min >= 0 && min <= max && max < orig.length) {
-			Measurement[] filtro = new Measurement[max - min + 1];
-			for (int i = min; i <= max; i++) {
-				filtro[i - min] = orig[i];
-			}
-			return new EEGModel(filtro);
-		} else {
+		/*
+		 * 
+		 * // TODO: YA HECHO /// Measurement[] orig = eeg.getMeasurements();
+		 * 
+		 * if (min >= 0 && min <= max && max < orig.length) {
+		 * 
+		 * Measurement[] filtro = new Measurement[max - min + 1];
+		 * 
+		 * for (int i = min; i <= max; i++) {
+		 * 
+		 * filtro[i - min] = orig[i];
+		 * 
+		 * }
+		 * 
+		 * return new EEGModel(filtro);
+		 * 
+		 * } else {
+		 * 
+		 * return null;
+		 * 
+		 * }
+		 * 
+		 */
+
+		/*
+		 * EEGModel filtro = new EEGModel(); if (min >= 0 && max <
+		 * eeg.measurements.size()) { for (int i = min; i <= max; i++) {
+		 * filtro.addMeasurement(eeg.measurements.get(i)); } return filtro; } else {
+		 * return null; }
+		 * 
+		 * }
+		 */
+		List<Measurement> filtrado = new ArrayList<>();
+		if (min < 0 || max >= eeg.measurements.size()) {
 			return null;
 		}
 
+		for (int i = min; i <= max; i++) {
+			filtrado.add(eeg.measurements.get(i));
+		}
+		Measurement[] arrFiltro = filtrado.toArray(new Measurement[0]);
+		return new EEGModel(arrFiltro);
 	}
+
 }

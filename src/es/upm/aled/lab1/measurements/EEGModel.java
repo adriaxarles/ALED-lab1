@@ -61,8 +61,8 @@ public class EEGModel {
 		// 1
 		for (Measurement item : measurements) {
 			this.measurements.add(item);
-
 		}
+		this.measurements = new ArrayList<>(Arrays.asList(measurements));
 		/*
 		 * for (int i = 0; i < measurements.length; i++) {
 		 * this.measurements.add(measurements[i]);
@@ -118,7 +118,7 @@ public class EEGModel {
 		File f = new File(fileName);
 		FileInputStream fis = new FileInputStream(f);
 		DataInput fid = new DataInputStream(fis);
-		String line;
+		String line = null;
 		while ((line = fid.readLine()) != null) {
 			// Removes the comments
 			if (line.startsWith("%"))
@@ -229,6 +229,7 @@ public class EEGModel {
 			} catch (Exception e) {
 			}
 		}
+
 	}
 
 	private Measurement createSyntheticMeasurement(int nchan, float fs_Hz, float scale_fac_uVolts_per_count) {
@@ -267,6 +268,7 @@ public class EEGModel {
 	}
 
 	public static void main(String[] args) {
+
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 
@@ -282,6 +284,13 @@ public class EEGModel {
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
+			EEGModel eeg2 = new EEGModel();
+			eeg2.createSyntheticData(1000);
+
+			FilterExtractPeriod periodFilter = new FilterExtractPeriod(2750, 5750);
+			EEGModel eegFiltrado = eeg.filter(periodFilter);
+			EEGModel eeg2Filtrado = eeg2.filter(periodFilter);
+
 			// TODO: YA HECHO
 			try {
 				eeg.saveFile("recordings/Synthetic.txt");
