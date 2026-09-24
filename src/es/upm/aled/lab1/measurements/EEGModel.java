@@ -71,6 +71,7 @@ public class EEGModel {
 
 	}
 
+
 	/**
 	 * Adds a Measurement to the end of the EEGModel. If the GUI is running, the new
 	 * Measurement is also plotted.
